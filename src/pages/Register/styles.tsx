@@ -5,6 +5,9 @@ export const LoginContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 26vw;
+    @media (max-width: 860px) {
+        width: 80vw;
+    }
     h1{
         margin-bottom: 15px;
     }

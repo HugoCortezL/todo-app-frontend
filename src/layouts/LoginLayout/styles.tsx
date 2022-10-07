@@ -11,11 +11,22 @@ export const LoginLayoutContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        &:first-child{
+            @media (max-width: 860px) {
+                width: 100%;
+            }
+        }
+        &:last-child{
+            @media (max-width: 860px) {
+                display: none;
+            }
+        }
     }
 `
 
 export const FakeImage = styled.div`
     position: relative;
+    
     div{
         position: absolute;
         &.light{
@@ -73,5 +84,5 @@ export const FakeImage = styled.div`
             right: 80px;
         }
     }
-
+    
 `
