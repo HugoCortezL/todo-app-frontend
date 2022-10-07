@@ -15,21 +15,6 @@ export default createGlobalStyle`
         -webkit-font-smoothing: antialiased !important;
         -webkit-text-size-adjust: 100% !important;
         overflow-x: hidden;
-        &::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        &::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-            background: #A468F0; 
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-            background: #8939EF; 
-        }
     }
 
     a{

@@ -20,3 +20,12 @@ export const LOGIN_USER = gql`
     }
 `
 
+export const GET_LISTS_BY_USER_ID = gql`
+    query getLists($id: String!){
+        getListsById(id: $id) {
+            _id
+            name
+        }
+    }
+`
+
