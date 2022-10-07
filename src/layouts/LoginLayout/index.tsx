@@ -5,7 +5,7 @@ interface LoginLayoutProps {
 }
 
 export default function LoginLayout(props: LoginLayoutProps) {
-    return(
+    return (
         <LoginLayoutContainer>
             <div className="first">
                 {props.children}
