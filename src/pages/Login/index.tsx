@@ -28,9 +28,11 @@ export default function Login() {
                         Forgot Password ?
                     </p>
                 </div>
-                <button className="primary-button">
-                    Login
-                </button>
+                <Link to={"/todos"} className="login-link">
+                    <button className="primary-button">
+                        Login
+                    </button>
+                </Link>
                 <div className="or">
                     <div className="line"></div>
                     <p>or</p>

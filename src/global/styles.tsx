@@ -49,6 +49,12 @@ export default createGlobalStyle`
         font: inherit;
         font-weight: bold;
         cursor: pointer;
+        span.icon{
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         &:hover{
             box-shadow: 1px 1px 3px #3733B096;
         }

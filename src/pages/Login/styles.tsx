@@ -14,6 +14,9 @@ export const LoginContainer = styled.div`
         cursor: pointer;
         font-weight: bold;
     }
+    a.login-link{
+        width: 100%;
+    }
     div.options{
         width: 100%;
         margin-top: 10px;
