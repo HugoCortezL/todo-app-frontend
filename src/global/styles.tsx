@@ -49,5 +49,8 @@ export default createGlobalStyle`
         font: inherit;
         font-weight: bold;
         cursor: pointer;
+        &:hover{
+            box-shadow: 1px 1px 3px #3733B096;
+        }
     }
 `

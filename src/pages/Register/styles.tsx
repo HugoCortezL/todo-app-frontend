@@ -14,20 +14,6 @@ export const LoginContainer = styled.div`
         cursor: pointer;
         font-weight: bold;
     }
-    div.options{
-        width: 100%;
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .remember{
-            display: flex;
-            gap: 5px;
-            input{
-                cursor: pointer;
-            }
-        }
-    }
     button.primary-button{
         width: 100%;
         margin: 30px 0 20px; 
