@@ -44,6 +44,7 @@ export const SideMenu = styled.div`
     }
     .lists{
         padding: 0px 10px 15px 15px;
+        height: 88%;
         max-height: 88%;
         width: 100%;
         margin-top: 10px;
@@ -64,29 +65,5 @@ export const SideMenu = styled.div`
         &::-webkit-scrollbar-thumb:hover {
             background: #1c1898; 
         }
-    }
-`
-
-export const ListItem = styled.div`
-    width: 100%;
-    padding: 10px;
-    font-size: 17px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0px 0px 4px #C3C3C3;
-    background-color: #FFFFFF;
-    border-radius: 4px;
-    margin-top: 10px;
-    cursor: pointer;
-    span{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    &.active{
-        box-shadow: 0px 0px 4px #3733B0;
-        background-color: #4F49FC;
-        color: #FFFFFF;
     }
 `

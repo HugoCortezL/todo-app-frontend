@@ -1,10 +1,11 @@
-import { TodosContainer, Header, Content, SideMenu, ListItem } from "./styles";
-import { BsPlusLg, BsThreeDotsVertical } from 'react-icons/bs'
-import { useParams, NavLink } from "react-router-dom";
+import { TodosContainer, Header, Content, SideMenu } from "./styles";
+import { BsPlusLg } from 'react-icons/bs'
+import { useParams } from "react-router-dom";
 import { useQuery } from '@apollo/client'
 import { GET_LISTS_BY_USER_ID } from '../../api/User'
 import { List } from "../../models";
 import { useState, useEffect } from "react";
+import ListCard from "../../components/core/ListCard";
 
 export default function Todos() {
     const { id } = useParams();
@@ -20,10 +21,10 @@ export default function Todos() {
         }
     }, [data])
 
-    const handlerChangeList = async (id: string) => {
+    const handlerChangeList = (id: string) => {
         setListToShow(id)
         const allItems = document.querySelectorAll('.list-item')
-        
+
         allItems.forEach(item => {
             item.classList.remove('active')
         })
@@ -62,12 +63,12 @@ export default function Todos() {
                             lists.length > 0 ?
                                 lists.map(list => {
                                     return (
-                                        <ListItem className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id}>
-                                            {list.name}
-                                            <span>
-                                                <BsThreeDotsVertical size={20}/>
-                                            </span>
-                                        </ListItem>
+                                        <ListCard className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id}>
+                                            <p>
+                                                {list.name}
+                                            </p>
+                                            
+                                        </ListCard>
                                     )
                                 })
                                 :
