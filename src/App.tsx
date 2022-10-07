@@ -1,8 +1,47 @@
+import Login from './pages/Login'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  from
+} from '@apollo/client'
+
+import { onError } from '@apollo/client/link/error'
+
+const errorLink = onError((
+  {
+    graphQLErrors, networkError
+  }
+) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({ message, locations, path }) => {
+      alert(`Graphql error ${message}`)
+    })
+  }
+}
+)
+
+const link = from([
+  errorLink,
+  new HttpLink({ uri: "http://localhost:4000/graphql" })
+])
+
+export const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: link
+})
+
 function App() {
   return (
-    <div>
-      Hello World!
-    </div>
+    <ApolloProvider client={client}>
+      <BrowserRouter >
+        <Routes>
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </ApolloProvider>
   )
 }
 
