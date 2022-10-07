@@ -1,21 +1,58 @@
 import LoginLayout from "../../layouts/LoginLayout";
 import FormGroup from "../../components/shared/FormGroup";
 import { LoginContainer } from "./styles";
-
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useMutation } from '@apollo/client'
+import { LOGIN_USER } from '../../api/User'
+import { useState, useEffect } from 'react'
 
 export default function Login() {
+    const navigate = useNavigate();
+
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    })
+
+    const [loginUser, _] = useMutation(LOGIN_USER)
+
+    const handlerLogin = async () => {
+        const userLogin = await loginUser({
+            variables: {
+                user: user
+            }
+        })
+        if(userLogin.data.loginUser.id){
+            navigate(`/todos/${userLogin.data.loginUser.id}`)
+        }
+    }
+
+    const handleChangeInput = (event: any): void => {
+        if (event.target.id == "email") {
+            setUser({
+                ...user,
+                email: event.target.value
+            })
+        }
+        else if (event.target.id == "password") {
+            setUser({
+                ...user,
+                password: event.target.value
+            })
+        }
+    }
+
     return (
         <LoginLayout>
             <LoginContainer>
                 <h1>Welcome Back</h1>
                 <FormGroup>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="example@email.com" />
+                    <input type="email" id="email" placeholder="example@email.com" onChange={handleChangeInput}/>
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" placeholder="********" />
+                    <input type="password" id="password" placeholder="********" onChange={handleChangeInput} />
                 </FormGroup>
                 <div className="options">
                     <div className="remember">
@@ -28,11 +65,9 @@ export default function Login() {
                         Forgot Password ?
                     </p>
                 </div>
-                <Link to={"/todos"} className="login-link">
-                    <button className="primary-button">
-                        Login
-                    </button>
-                </Link>
+                <button className="primary-button" onClick={handlerLogin}>
+                    Login
+                </button>
                 <div className="or">
                     <div className="line"></div>
                     <p>or</p>
