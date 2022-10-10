@@ -6,7 +6,8 @@ interface ModalProps {
     onCancel: () => void
     onConfirm: () => void
     confirmText: string
-    children: any
+    children: any,
+    id?: string
 }
 
 export default function Modal(props:ModalProps) {
