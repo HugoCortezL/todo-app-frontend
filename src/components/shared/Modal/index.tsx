@@ -15,17 +15,17 @@ export default function Modal(props:ModalProps) {
             <div className="header">
                 {props.title}
                 <div className="close"  onClick={props.onCancel}>
-                    <AiOutlineClose color={"#BC95ED"}/>
+                    <AiOutlineClose color={"#4F49FC"}/>
                 </div>
             </div>
             <div className="content">
                 {props.children}
             </div>
             <div className="footer">
-                <button className="ternary-btn" onClick={props.onCancel}>
+                <button className="ternary-button" onClick={props.onCancel}>
                     Cancel
                 </button>
-                <button className="primary-btn"  onClick={props.onConfirm}>
+                <button className="primary-button"  onClick={props.onConfirm}>
                     {props.confirmText}
                 </button>
             </div>

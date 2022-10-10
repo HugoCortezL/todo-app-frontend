@@ -44,4 +44,27 @@ export default createGlobalStyle`
             box-shadow: 1px 1px 3px #3733B096;
         }
     }
+
+    button.ternary-button {
+        background-color: transparent;
+        color: #3733B0;
+        border-radius: 5px;
+        border: 1px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        font: inherit;
+        font-weight: bold;
+        cursor: pointer;
+        span.icon{
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        &:hover{
+            border: 1px solid #3733B0;
+        }
+    }
 `

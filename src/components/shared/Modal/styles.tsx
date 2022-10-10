@@ -12,6 +12,11 @@ export const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media (max-width: 860px) {
+        height: 70vh;
+        width: 80vw;
+        left: 10vw;
+    }
     .header{
         display: flex;
         align-items: center;
@@ -19,8 +24,8 @@ export const ModalContainer = styled.div`
         position: relative;
         width: 100%;
         height: 50px;
-        background-color: #E8D7FF;
-        color: #8939EF;
+        background-color: #E4ECFF;
+        color: #3733B0;
         font-size: 20px;
         .close{
             position: absolute;
@@ -41,11 +46,14 @@ export const ModalContainer = styled.div`
     .footer{
         height: 50px;
         width: 100%;
-        background-color: #E8D7FF;
+        background-color: #E4ECFF;
         display: flex;
         align-items: center;
         gap: 15px;
         justify-content: end;
+        button {
+            padding: 0 20px;
+        }
         button:last-child{
             margin-right: 20px; 
         }
