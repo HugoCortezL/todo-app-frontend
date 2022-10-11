@@ -13,6 +13,9 @@ export const ListCardContainer = styled.div`
     margin-top: 10px;
     cursor: pointer;
     position: relative;
+    &:hover{
+        background-color: #e5e4ff;
+    }
     span{
         display: flex;
         align-items: center;

@@ -39,6 +39,10 @@ export const Content = styled.div`
     height: calc(100vh - 60px);
     display: flex;
     align-items: center;
+    .todos{
+        width: 77%;
+        height: 100%;
+    }
 `
 
 export const SideMenu = styled.div`
@@ -58,6 +62,7 @@ export const SideMenu = styled.div`
             display: flex;
             align-items: center;
             justify-content: space-between;
+            z-index: 1000;
             p{
                 font-size: 25px;
                 @media (max-width: 860px) {

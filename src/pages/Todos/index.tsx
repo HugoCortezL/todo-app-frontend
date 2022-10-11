@@ -12,6 +12,7 @@ import Backdrop from "../../components/shared/Backdrop";
 import Modal from "../../components/shared/Modal";
 import FormGroup from "../../components/shared/FormGroup";
 import ListCardLoading from "../../components/core/ListCardLoading";
+import TodosContent from "../../components/core/Todos/TodosContent";
 
 export default function Todos() {
     const { id } = useParams();
@@ -28,7 +29,7 @@ export default function Todos() {
         variables: { id }
     })
 
-    const [ createList, createListResult] = useMutation(CREATE_LIST, {
+    const [createList, createListResult] = useMutation(CREATE_LIST, {
         refetchQueries: [
             {
                 query: GET_LISTS_BY_USER_ID,
@@ -98,14 +99,14 @@ export default function Todos() {
                 <Modal title="Create a list" onCancel={cancelCreating} onConfirm={onConfirmCreate} confirmText="Create">
                     <FormGroup>
                         <label htmlFor="name">Name</label>
-                        <input type="name" id="name" placeholder="Work" onChange={(event) => setListToCreate({...listToCreate, name: event.target.value})}/>
+                        <input type="name" id="name" placeholder="Work" onChange={(event) => setListToCreate({ ...listToCreate, name: event.target.value })} />
                     </FormGroup>
                 </Modal>
             }
             <TodosContainer>
                 <Header>
                     <span className="burguer-icon" onClick={handlerOpenMenu}>
-                        <AiOutlineMenu/>
+                        <AiOutlineMenu />
                     </span>
                     <h1>Todo App</h1>
                     <span className="user-id">
@@ -126,28 +127,31 @@ export default function Todos() {
                         <div className="lists">
                             {
                                 loading &&
-                                [0,1,2,3,4,5].map(list => {
+                                [0, 1, 2, 3, 4, 5].map(list => {
                                     return (
-                                        <ListCardLoading />
+                                        <ListCardLoading key={list} />
                                     )
                                 })
                             }
                             {
                                 lists.length > 0 &&
-                                    lists.map(list => {
-                                        return (
-                                            <ListCard className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id} userId={id ? id : ""} name={list.name}>
-                                                <p>
-                                                    {list.name}
-                                                </p>
-                                            </ListCard>
-                                        )
-                                    })
+                                lists.map(list => {
+                                    return (
+                                        <ListCard className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id} userId={id ? id : ""} name={list.name}>
+                                            <p>
+                                                {list.name}
+                                            </p>
+                                        </ListCard>
+                                    )
+                                })
                             }
                         </div>
                     </SideMenu>
                     <div className="todos">
-
+                        {
+                            listToShow &&
+                            <TodosContent listId={listToShow} userId={id ? id : ""} />
+                        }
                     </div>
                 </Content>
             </TodosContainer>

@@ -18,3 +18,19 @@ export const DELETE_LIST = gql`
     }
 `
 
+export const GET_LIST_BY_ID = gql`
+    query getById($listId: String!, $userId: String!){
+        getListById(listId: $listId, userId: $userId) {
+            _id
+            name
+            todos {
+                _id
+                title
+                priority
+                status
+                deadline
+                favorite
+            }
+        }
+    }
+`
