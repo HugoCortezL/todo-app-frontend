@@ -21,6 +21,11 @@ export default function ConfigTodos(props: ConfigTodosProps) {
     const {userId, listId} = useContext(UserContext);
     const [filteredTodos, setFilteredTodos] = useState(props.todos)
     const [creating, setCreating] = useState(false)
+    const [filters, setFilters] = useState({
+        searchText: "",
+        onlyFavorites: false,
+        orderBy: ""
+    })
     const [todoToCreate, setTodoToCreate] = useState<TodoInput>({
         title: "",
         favorite: false,
@@ -70,6 +75,19 @@ export default function ConfigTodos(props: ConfigTodosProps) {
     useEffect(() => {
         setFilteredTodos(props.todos)
     }, [props.todos])
+    
+    useEffect(() => {
+        let newFilteredTodos = props.todos
+        if (filters.onlyFavorites) {
+            newFilteredTodos = newFilteredTodos.filter(todo => todo.favorite)
+        }
+        if (filters.searchText.trim().length > 0) {
+            newFilteredTodos = newFilteredTodos.filter(todo => todo.title.includes(filters.searchText))
+        }
+
+        setFilteredTodos(newFilteredTodos)
+
+    }, [filters])
 
     return (
         <>
@@ -101,12 +119,12 @@ export default function ConfigTodos(props: ConfigTodosProps) {
             <ConfigTodosContainer>
                 <Filters>
                     <FormGroup>
-                        <input type="search" id="search" placeholder="Search..." />
+                        <input type="search" id="search" placeholder="Search..." value={filters.searchText} onChange={(event) => setFilters({...filters, searchText: event.target.value})}/>
                     </FormGroup>
                     <div className="other-filters">
                         <div>
-                            <input type="checkbox" />
-                            <p>Show only favorites</p>
+                            <input type="checkbox" id="onlyFav" checked={filters.onlyFavorites} onChange={() => setFilters({...filters, onlyFavorites: !filters.onlyFavorites})}/>
+                            <label htmlFor="onlyFav">Show only favorites</label>
                         </div>
                         <div className="order">
                             <p>
