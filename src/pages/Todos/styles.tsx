@@ -55,7 +55,13 @@ export const SideMenu = styled.div`
             box-shadow: 2px 3px 4px #E0E0E0;
             padding: 5px;
             @media (max-width: 860px) {
-                width: 60%;
+                position: absolute;
+                height: calc(100vh - 60px);
+                background-color: #FFFFFF;
+                z-index: 1001;
+                width: 70vw;
+                top: 60px;
+                left: 0;
             }
         header{
             padding: 15px 15px 0px 15px;
@@ -66,11 +72,14 @@ export const SideMenu = styled.div`
             p{
                 font-size: 25px;
                 @media (max-width: 860px) {
-                    font-size: 20px;
+                    font-size: 17px;
                 }
             }
             button{
                 padding: 0 15px;
+                @media (max-width: 860px) {
+                    padding: 0 10px;
+                }
             }
         }
         .lists{

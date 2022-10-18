@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const InformationalTodosContainer = styled.div`
+    @media (max-width: 860px) {
+        display: none;
+    }
     width: 100%;
     display: flex;
     align-items: center;

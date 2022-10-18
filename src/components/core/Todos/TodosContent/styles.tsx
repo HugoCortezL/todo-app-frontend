@@ -10,4 +10,7 @@ export const TodosContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    @media (max-width: 860px) {
+        width: 100vw;
+    }
 `

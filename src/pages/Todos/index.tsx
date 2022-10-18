@@ -51,6 +51,7 @@ export default function Todos() {
     const handlerChangeList = (id: string) => {
         setListToShow(id)
         const allItems = document.querySelectorAll('.list-item')
+        
 
         allItems.forEach(item => {
             item.classList.remove('active')
@@ -62,6 +63,9 @@ export default function Todos() {
 
     const startCreating = () => {
         setCreating(true)
+        if(window.innerWidth <= 860){
+            setOpenMenu(false)
+        }
     }
 
     const cancelCreating = () => {
@@ -70,6 +74,9 @@ export default function Todos() {
             name: "",
             todos: []
         })
+        if(window.innerWidth <= 860){
+            setOpenMenu(true)
+        }
     }
 
     const onConfirmCreate = async () => {
@@ -82,6 +89,9 @@ export default function Todos() {
             }
         )
         cancelCreating()
+        if(window.innerWidth <= 860){
+            setOpenMenu(true)
+        }
     }
 
     const handlerOpenMenu = () => {
@@ -108,7 +118,7 @@ export default function Todos() {
             <TodosContainer>
                 <Header>
                     <span className="burguer-icon" onClick={handlerOpenMenu}>
-                        <AiOutlineMenu />
+                        <AiOutlineMenu size={25}/>
                     </span>
                     <h1>Todo App</h1>
                     <span className="user-id">
@@ -139,7 +149,7 @@ export default function Todos() {
                                 lists.length > 0 &&
                                 lists.map(list => {
                                     return (
-                                        <ListCard className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id} userId={id ? id : ""} name={list.name}>
+                                        <ListCard className="list-item" key={list._id} onClick={() => handlerChangeList(list._id)} id={list._id} name={list.name}>
                                             <p>
                                                 {list.name}
                                             </p>
