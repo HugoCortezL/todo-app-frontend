@@ -11,6 +11,7 @@ import { useContext, useState } from "react";
 import Backdrop from "../../../shared/Backdrop";
 import Modal from "../../../shared/Modal";
 import FormGroup from "../../../shared/FormGroup";
+import PriorityTodo from "../PriorityTodo";
 
 interface TodoCardProps {
     todo: Todo
@@ -168,9 +169,7 @@ export default function TodoCard(props: TodoCardProps) {
                 <header>
                     <div className="left">
                         <StatusBadge status={props.todo.status} />
-                        <span>
-                            {props.todo.priority}
-                        </span>
+                        <PriorityTodo priority={props.todo.priority} />
                     </div>
                     <div className="right">
                         <span className="star" onClick={onFavoriteItem} title="favorite">
