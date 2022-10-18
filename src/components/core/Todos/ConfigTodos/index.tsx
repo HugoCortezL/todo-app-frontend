@@ -18,13 +18,14 @@ interface ConfigTodosProps {
 }
 
 export default function ConfigTodos(props: ConfigTodosProps) {
-    const {userId, listId} = useContext(UserContext);
+    const { userId, listId } = useContext(UserContext);
     const [filteredTodos, setFilteredTodos] = useState(props.todos)
     const [creating, setCreating] = useState(false)
+    const [openOrder, setOpenOrder] = useState(false)
     const [filters, setFilters] = useState({
         searchText: "",
         onlyFavorites: false,
-        orderBy: ""
+        orderBy: ["Order by", "", ""]
     })
     const [todoToCreate, setTodoToCreate] = useState<TodoInput>({
         title: "",
@@ -75,7 +76,42 @@ export default function ConfigTodos(props: ConfigTodosProps) {
     useEffect(() => {
         setFilteredTodos(props.todos)
     }, [props.todos])
-    
+
+    const sortFunc = (property: string) => {
+        let sortOrder = 1;
+        if(property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a: any,b: any) {
+            if(property == "priority"){
+                console.log("A property")
+                console.log(a[property])
+                console.log("B property")
+                console.log(b[property])
+                if (a[property] == PriorityEnum.Low){
+                    return -1 * sortOrder
+                }
+                if (a[property] == PriorityEnum.Mid && b[property] == PriorityEnum.Low){
+                    return 1 * sortOrder
+                }
+                if (a[property] == PriorityEnum.Mid && b[property] == PriorityEnum.High){
+                    return -1 * sortOrder
+                }
+                if (a[property] == PriorityEnum.High){
+                    return 1 * sortOrder
+                }
+                return (0 * sortOrder);
+            }
+            else{
+                if (a[property] < b[property]){
+                    return -1 * sortOrder
+                }
+                return (a[property] > b[property]) ? (1 * sortOrder) : (0 * sortOrder);
+            }
+        }
+    }
+
     useEffect(() => {
         let newFilteredTodos = props.todos
         if (filters.onlyFavorites) {
@@ -83,6 +119,13 @@ export default function ConfigTodos(props: ConfigTodosProps) {
         }
         if (filters.searchText.trim().length > 0) {
             newFilteredTodos = newFilteredTodos.filter(todo => todo.title.includes(filters.searchText))
+        }
+        if (filters.orderBy[1].length > 0) {
+            let field = filters.orderBy[1]
+            if(filters.orderBy[2] == "desc"){
+                field = "-" + field
+            }
+            newFilteredTodos = newFilteredTodos.slice().sort(sortFunc(field))
         }
 
         setFilteredTodos(newFilteredTodos)
@@ -119,25 +162,47 @@ export default function ConfigTodos(props: ConfigTodosProps) {
             <ConfigTodosContainer>
                 <Filters>
                     <FormGroup>
-                        <input type="search" id="search" placeholder="Search..." value={filters.searchText} onChange={(event) => setFilters({...filters, searchText: event.target.value})}/>
+                        <input type="search" id="search" placeholder="Search..." value={filters.searchText} onChange={(event) => setFilters({ ...filters, searchText: event.target.value })} />
                     </FormGroup>
                     <div className="other-filters">
                         <div>
-                            <input type="checkbox" id="onlyFav" checked={filters.onlyFavorites} onChange={() => setFilters({...filters, onlyFavorites: !filters.onlyFavorites})}/>
+                            <input type="checkbox" id="onlyFav" checked={filters.onlyFavorites} onChange={() => setFilters({ ...filters, onlyFavorites: !filters.onlyFavorites })} />
                             <label htmlFor="onlyFav">Show only favorites</label>
                         </div>
-                        <div className="order">
-                            <p>
-                                Order by
-                            </p>
-                            <span className="icon-up-down">
-                                <span className="up">
-                                    <BiChevronUp />
+                        <div className="order" onMouseLeave={() => setOpenOrder(false)}>
+                            <div onClick={() => setOpenOrder(!openOrder)}>
+                                <p>
+                                    {filters.orderBy[0]}
+                                </p>
+                                <span className="icon-up-down">
+                                    <span className="up">
+                                        <BiChevronUp />
+                                    </span>
+                                    <span className="down">
+                                        <BiChevronDown />
+                                    </span>
                                 </span>
-                                <span className="down">
-                                    <BiChevronDown />
-                                </span>
-                            </span>
+                            </div>
+                            <div className={openOrder ? "options open" : "options"}>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Title [A-Z]", "title", "asc"] })}>
+                                    Title [A-Z]
+                                </p>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Title [Z-A]", "title", "desc"] })}>
+                                    Title [Z-A]
+                                </p>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Priority [High-Low]", "priority", "desc"] })}>
+                                    Priority [High-Low]
+                                </p>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Priority [Low-High]", "priority", "asc"] })}>
+                                    Priority [Low-High]
+                                </p>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Deadline [Low-High]", "deadline", "asc"] })}>
+                                    Deadline [Low-High]
+                                </p>
+                                <p onClick={() => setFilters({ ...filters, orderBy: ["Deadline [High-Low]", "deadline", "desc"] })}>
+                                    Deadline [High-Low]
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </Filters>
@@ -147,7 +212,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
                         <BsPlusLg size={16} />
                     </span>
                 </button>
-                <TodosList todos={filteredTodos}/>
+                <TodosList todos={filteredTodos} />
             </ConfigTodosContainer>
         </>
     )
