@@ -19,7 +19,7 @@ export const InformationalTodosContainer = styled.div`
         box-shadow: 4px 4px 8px #adadad, -4px -4px 8px #ffffff;
         h2{
             &.todo-color{
-                color: #ff09a9;
+                color: #B509FF;
             }
             &.progress-color{
                 color: #4973CC;

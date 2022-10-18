@@ -1,5 +1,5 @@
 import { ConfigTodosContainer, Filters } from "./styles";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Todo, TodoInput, PriorityEnum, StatusEnum } from "../../../../models";
 import FormGroup from "../../../shared/FormGroup";
 import { BiChevronUp, BiChevronDown } from 'react-icons/bi'
@@ -10,14 +10,15 @@ import { CREATE_TODO } from '../../../../api/Todo'
 import { GET_LIST_BY_ID } from "../../../../api/List";
 import Backdrop from "../../../shared/Backdrop";
 import Modal from "../../../shared/Modal";
+import { UserContext } from "../../../../pages/Todos";
+
 
 interface ConfigTodosProps {
-    todos: Todo[],
-    userId: string,
-    listId: string
+    todos: Todo[]
 }
 
 export default function ConfigTodos(props: ConfigTodosProps) {
+    const {userId, listId} = useContext(UserContext);
     const [filteredTodos, setFilteredTodos] = useState(props.todos)
     const [creating, setCreating] = useState(false)
     const [todoToCreate, setTodoToCreate] = useState<TodoInput>({
@@ -32,7 +33,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
         refetchQueries: [
             {
                 query: GET_LIST_BY_ID,
-                variables: { listId: props.listId, userId: props.userId }
+                variables: { listId: listId, userId: userId }
             }
         ]
     })
@@ -57,15 +58,14 @@ export default function ConfigTodos(props: ConfigTodosProps) {
             {
                 variables: {
                     todo: todoToCreate,
-                    listId: props.listId,
-                    userId: props.userId
+                    listId: listId,
+                    userId: userId
                 }
             }
         )
         cancelCreating()
     }
 
-    console.log(todoToCreate)
 
     useEffect(() => {
         setFilteredTodos(props.todos)

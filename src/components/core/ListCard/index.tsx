@@ -1,6 +1,6 @@
 import { ListCardContainer, ListCardOptions } from './styles'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { DELETE_LIST, EDIT_LIST } from '../../../api/List'
 import { GET_LISTS_BY_USER_ID } from '../../../api/User'
@@ -8,17 +8,19 @@ import { ListInput, Todo } from '../../../models'
 import Backdrop from '../../shared/Backdrop'
 import Modal from '../../shared/Modal'
 import FormGroup from '../../shared/FormGroup'
+import { UserContext } from "../../../pages/Todos";
+
 
 interface ListCardProps {
     children: any,
     className: string,
     onClick: () => void,
     id: string,
-    userId: string,
     name: string
 }
 
 export default function ListCard(props: ListCardProps) {
+    const {userId, listId} = useContext(UserContext);
     const [openOptions, setOpenOptions] = useState(false)
     const [editing, setEditing] = useState(false)
     const [listToEdit, setListToEdit] = useState<ListInput>({
@@ -37,7 +39,7 @@ export default function ListCard(props: ListCardProps) {
             {
                 query: GET_LISTS_BY_USER_ID,
                 variables: {
-                    id: props.userId
+                    id: userId
                 }
             }
         ]
@@ -48,7 +50,7 @@ export default function ListCard(props: ListCardProps) {
             {
                 query: GET_LISTS_BY_USER_ID,
                 variables: {
-                    id: props.userId
+                    id: userId
                 }
             }
         ]
@@ -59,7 +61,7 @@ export default function ListCard(props: ListCardProps) {
             {
                 variables: {
                     listId: props.id,
-                    userId: props.userId
+                    userId: userId
                 }
             }
         )
@@ -81,7 +83,7 @@ export default function ListCard(props: ListCardProps) {
                 variables: {
                     list: listToEdit,
                     listId: listToEditId,
-                    userId: props.userId
+                    userId: userId
                 }
             }
         )

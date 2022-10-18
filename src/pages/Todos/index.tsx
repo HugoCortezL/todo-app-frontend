@@ -6,7 +6,7 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_LISTS_BY_USER_ID } from '../../api/User'
 import { CREATE_LIST } from '../../api/List'
 import { List, ListInput } from "../../models";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import ListCard from "../../components/core/ListCard";
 import Backdrop from "../../components/shared/Backdrop";
 import Modal from "../../components/shared/Modal";
@@ -14,6 +14,8 @@ import FormGroup from "../../components/shared/FormGroup";
 import ListCardLoading from "../../components/core/ListCardLoading";
 import TodosContent from "../../components/core/Todos/TodosContent";
 
+
+export const UserContext = createContext({userId: "", listId: ""});
 export default function Todos() {
     const { id } = useParams();
     const [creating, setCreating] = useState(false)
@@ -89,7 +91,7 @@ export default function Todos() {
 
 
     return (
-        <>
+        <UserContext.Provider value={{userId: id ? id : "", listId: listToShow}}>
             {
                 creating &&
                 <Backdrop click={cancelCreating} />
@@ -150,12 +152,12 @@ export default function Todos() {
                     <div className="todos">
                         {
                             listToShow &&
-                            <TodosContent listId={listToShow} userId={id ? id : ""} />
+                            <TodosContent/>
                         }
                     </div>
                 </Content>
             </TodosContainer>
-        </>
+        </UserContext.Provider>
 
     )
 }

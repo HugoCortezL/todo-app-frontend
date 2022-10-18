@@ -6,8 +6,7 @@ interface ModalProps {
     onCancel: () => void
     onConfirm: () => void
     confirmText: string
-    children: any,
-    id?: string
+    children: any
 }
 
 export default function Modal(props:ModalProps) {
@@ -30,7 +29,6 @@ export default function Modal(props:ModalProps) {
                     {props.confirmText}
                 </button>
             </div>
-
         </ModalContainer>
     )
 }
