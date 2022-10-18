@@ -87,7 +87,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
                     <FormGroup>
                         <label htmlFor="priority">Priority</label>
                         <select value={todoToCreate.priority} onChange={(event) => setTodoToCreate({ ...todoToCreate, priority: event.target.value })}>
-                            <option value={PriorityEnum.Low} selected>Low</option>
+                            <option value={PriorityEnum.Low}>Low</option>
                             <option value={PriorityEnum.Mid}>Mid</option>
                             <option value={PriorityEnum.High}>High</option>
                         </select>

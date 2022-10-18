@@ -1,10 +1,10 @@
-import { TodoCardContainer } from "./styles";
+import { TodoCardContainer, TodoCardOptions } from "./styles";
 import { PriorityEnum, StatusEnum, Todo, TodoInput } from "../../../../models";
 import { AiFillStar } from 'react-icons/ai'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import StatusBadge from "../../../shared/StatusBadge";
 import { useMutation } from '@apollo/client'
-import { FAVORITE_TODO, UPDATE_TODO } from '../../../../api/Todo'
+import { UPDATE_TODO, DELETE_TODO, FAVORITE_TODO } from '../../../../api/Todo'
 import { GET_LIST_BY_ID } from '../../../../api/List'
 import { UserContext } from "../../../../pages/Todos";
 import { useContext, useState } from "react";
@@ -17,8 +17,9 @@ interface TodoCardProps {
 }
 
 export default function TodoCard(props: TodoCardProps) {
-    const {userId, listId} = useContext(UserContext);
+    const { userId, listId } = useContext(UserContext);
     const [editing, setEditing] = useState(false)
+    const [openOptions, setOpenOptions] = useState(false)
     const [todoToEdit, setTodoToEdit] = useState<TodoInput>({
         title: props.todo.title,
         favorite: props.todo.favorite,
@@ -26,6 +27,10 @@ export default function TodoCard(props: TodoCardProps) {
         deadline: props.todo.deadline,
         status: props.todo.status
     })
+
+    const handlerOpenOptions = () => {
+        setOpenOptions(!openOptions)
+    }
 
     let boxShadowColor
     if (props.todo.status == StatusEnum.Todo) {
@@ -53,6 +58,30 @@ export default function TodoCard(props: TodoCardProps) {
         ]
     })
 
+    const [deleteTodo, deleteTodoResult] = useMutation(DELETE_TODO, {
+        refetchQueries: [
+            {
+                query: GET_LIST_BY_ID,
+                variables: {
+                    listId,
+                    userId
+                }
+            }
+        ]
+    })
+
+    const onDeleteTodo = async () => {
+        await deleteTodo(
+            {
+                variables: {
+                    todoId: props.todo._id,
+                    listId,
+                    userId
+                }
+            }
+        )
+    }
+
     const startEditing = () => {
         setEditing(true)
     }
@@ -74,7 +103,7 @@ export default function TodoCard(props: TodoCardProps) {
         )
         cancelEditing()
     }
-    
+
     const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO, {
         refetchQueries: [
             {
@@ -114,16 +143,16 @@ export default function TodoCard(props: TodoCardProps) {
                     </FormGroup>
                     <FormGroup>
                         <label htmlFor="priority">Priority</label>
-                        <select  value={todoToEdit.priority} onChange={(event) => setTodoToEdit({ ...todoToEdit, priority: event.target.value })}>
-                            <option value={PriorityEnum.Low} selected>Low</option>
+                        <select value={todoToEdit.priority} onChange={(event) => setTodoToEdit({ ...todoToEdit, priority: event.target.value })}>
+                            <option value={PriorityEnum.Low} >Low</option>
                             <option value={PriorityEnum.Mid}>Mid</option>
                             <option value={PriorityEnum.High}>High</option>
                         </select>
                     </FormGroup>
                     <FormGroup>
                         <label htmlFor="status">Status</label>
-                        <select  value={todoToEdit.status} onChange={(event) => setTodoToEdit({ ...todoToEdit, status: event.target.value })}>
-                            <option value={StatusEnum.Todo} selected>To-do</option>
+                        <select value={todoToEdit.status} onChange={(event) => setTodoToEdit({ ...todoToEdit, status: event.target.value })}>
+                            <option value={StatusEnum.Todo}>To-do</option>
                             <option value={StatusEnum.Progess}>In Progress</option>
                             <option value={StatusEnum.Review}>Review</option>
                             <option value={StatusEnum.Done}>Done</option>
@@ -135,7 +164,7 @@ export default function TodoCard(props: TodoCardProps) {
                     </FormGroup>
                 </Modal>
             }
-            <TodoCardContainer bsColor={boxShadowColor}>
+            <TodoCardContainer bsColor={boxShadowColor} onMouseLeave={() => setOpenOptions(false)}>
                 <header>
                     <div className="left">
                         <StatusBadge status={props.todo.status} />
@@ -147,8 +176,16 @@ export default function TodoCard(props: TodoCardProps) {
                         <span className="star" onClick={onFavoriteItem} title="favorite">
                             <AiFillStar color={props.todo.favorite ? "#A600ED" : "#989898"} size={20} />
                         </span>
-                        <span className="options" onClick={startEditing}>
+                        <span className="options" onClick={handlerOpenOptions}>
                             <BsThreeDotsVertical size={20} />
+                            <TodoCardOptions className={openOptions ? "open" : ""}>
+                                <p className='edit' onClick={startEditing}>
+                                    Edit
+                                </p>
+                                <p className='delete' onClick={onDeleteTodo}>
+                                    Delete
+                                </p>
+                            </TodoCardOptions>
                         </span>
                     </div>
                 </header>
