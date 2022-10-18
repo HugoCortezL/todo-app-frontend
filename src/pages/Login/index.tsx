@@ -26,33 +26,18 @@ export default function Login() {
             navigate(`/todos/${userLogin.data.loginUser.id}`)
         }
     }
-
-    const handleChangeInput = (event: any): void => {
-        if (event.target.id == "email") {
-            setUser({
-                ...user,
-                email: event.target.value
-            })
-        }
-        else if (event.target.id == "password") {
-            setUser({
-                ...user,
-                password: event.target.value
-            })
-        }
-    }
-
+    
     return (
         <LoginLayout>
             <LoginContainer>
                 <h1>Welcome Back</h1>
                 <FormGroup>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="example@email.com" onChange={handleChangeInput}/>
+                    <input type="email" id="email" placeholder="example@email.com" onChange={(event) => setUser({ ...user, email: event.target.value})}/>
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" placeholder="********" onChange={handleChangeInput} />
+                    <input type="password" id="password" placeholder="********" onChange={(event) => setUser({ ...user, password: event.target.value })} />
                 </FormGroup>
                 <div className="options">
                     <div className="remember">

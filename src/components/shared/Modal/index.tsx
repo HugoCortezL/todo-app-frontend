@@ -1,12 +1,13 @@
 import { ModalContainer } from "./styles";
 import {AiOutlineClose} from 'react-icons/ai'
+import { ReactNode } from "react";
 
 interface ModalProps {
     title: string
     onCancel: () => void
     onConfirm: () => void
     confirmText: string
-    children: any
+    children: ReactNode
 }
 
 export default function Modal(props:ModalProps) {

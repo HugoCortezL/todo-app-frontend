@@ -6,7 +6,7 @@ export const FormGroupContainer = styled.div`
     label{
         color: inherit
     }
-    input{
+    input, select{
         width: 100%;
         padding: 10px;
         border: 1px solid #BBBBBB;

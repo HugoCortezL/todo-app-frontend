@@ -1,6 +1,6 @@
 import { ListCardContainer, ListCardOptions } from './styles'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { useContext, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { DELETE_LIST, EDIT_LIST } from '../../../api/List'
 import { GET_LISTS_BY_USER_ID } from '../../../api/User'
@@ -12,7 +12,7 @@ import { UserContext } from "../../../pages/Todos";
 
 
 interface ListCardProps {
-    children: any,
+    children: ReactNode,
     className: string,
     onClick: () => void,
     id: string,
@@ -27,7 +27,6 @@ export default function ListCard(props: ListCardProps) {
         name: props.name,
         todos: []
     })
-    const [listToEditId, setListToEditId] = useState("")
 
 
     const handlerOpenOptions = () => {
@@ -69,12 +68,10 @@ export default function ListCard(props: ListCardProps) {
 
     const onEditList = (listId: string) => {
         setEditing(true)
-        setListToEditId(listId)
     }
 
     const cancelEditing = () => {
         setEditing(false)
-        setListToEditId("")
     }
 
     const onConfirmEdit = async () => {
@@ -82,7 +79,7 @@ export default function ListCard(props: ListCardProps) {
             {
                 variables: {
                     list: listToEdit,
-                    listId: listToEditId,
+                    listId: props.id,
                     userId: userId
                 }
             }

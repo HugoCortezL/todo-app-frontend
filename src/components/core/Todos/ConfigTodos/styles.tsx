@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ConfigTodosContainer = styled.div`
     width: 100%;
     button.primary-button{
-        margin-top: 10px;
         padding: 0 15px;
     }
 `
@@ -15,6 +14,7 @@ export const Filters = styled.div`
         align-items: center;
         justify-content: space-between;
         margin-top: 5px;
+        margin-bottom: 10px;
         div{
             display: flex;
             align-items: center;

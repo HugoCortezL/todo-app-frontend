@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import { LoginLayoutContainer, FakeImage } from "./styles";
 
 interface LoginLayoutProps {
-    children: any
+    children: ReactNode
 }
 
 export default function LoginLayout(props: LoginLayoutProps) {

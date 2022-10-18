@@ -1,8 +1,9 @@
+import { ReactNode } from "react"
 import { FormGroupContainer } from "./styles"
 
 
 interface FormGroupProps {
-    children: any
+    children: ReactNode
 }
 export default function FormGroup(props: FormGroupProps) {
     return (

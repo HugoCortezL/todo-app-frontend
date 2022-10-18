@@ -85,7 +85,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
                         <input type="text" id="title" placeholder="Study react" value={todoToCreate.title} onChange={(event) => setTodoToCreate({ ...todoToCreate, title: event.target.value })} />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="priority">Priority</label>
                         <select value={todoToCreate.priority} onChange={(event) => setTodoToCreate({ ...todoToCreate, priority: event.target.value })}>
                             <option value={PriorityEnum.Low} selected>Low</option>
                             <option value={PriorityEnum.Mid}>Mid</option>

@@ -45,44 +45,21 @@ export default function Login() {
     }
 
 
-    const handleChangeInput = (event: any): void => {
-        if (event.target.id == "name") {
-            setUser({
-                ...user,
-                name: event.target.value
-            })
-        }
-        else if (event.target.id == "email") {
-            setUser({
-                ...user,
-                email: event.target.value
-            })
-        }
-        else if (event.target.id == "password") {
-            setUser({
-                ...user,
-                password: event.target.value
-            })
-        }
-    }
-
-
-
     return (
         <LoginLayout>
             <LoginContainer>
                 <h1>Welcome</h1>
                 <FormGroup>
                     <label htmlFor="name">Name</label>
-                    <input type="name" id="name" placeholder="Brad pitt" onChange={handleChangeInput} />
+                    <input type="name" id="name" placeholder="Brad pitt" onChange={(event) => setUser({ ...user, name: event.target.value })} />
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="example@email.com" onChange={handleChangeInput} />
+                    <input type="email" id="email" placeholder="example@email.com" onChange={(event) => setUser({ ...user, email: event.target.value })} />
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" placeholder="********" onChange={handleChangeInput} />
+                    <input type="password" id="password" placeholder="********" onChange={(event) => setUser({ ...user, password: event.target.value })} />
                 </FormGroup>
                 <button className="primary-button" onClick={onRegister}>
                     Register
