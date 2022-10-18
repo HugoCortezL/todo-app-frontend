@@ -5,13 +5,16 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import StatusBadge from "../../../shared/StatusBadge";
 import { useMutation } from '@apollo/client'
 import { FAVORITE_TODO } from '../../../../api/Todo'
-//import { GET_LIST_BY_ID } from '../../../../api/List'
+import { UserContext } from "../../../../pages/Todos";
+import { useContext } from "react";
+import { GET_LIST_BY_ID } from '../../../../api/List'
 
 interface TodoCardProps {
     todo: Todo
 }
 
 export default function TodoCard(props: TodoCardProps) {
+    const {userId, listId} = useContext(UserContext);
     let boxShadowColor
     if (props.todo.status == StatusEnum.Todo) {
         boxShadowColor = "#B509FF"
@@ -26,22 +29,25 @@ export default function TodoCard(props: TodoCardProps) {
         boxShadowColor = "#40B862"
     }
 
-    const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO/*, {
+    const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO, {
         refetchQueries: [
             {
                 query: GET_LIST_BY_ID,
                 variables: {
-                    id: props.userId
+                    listId,
+                    userId
                 }
             }
         ]
-    }*/)
+    })
 
     const onFavoriteItem = async () => {
         await favoriteTodo(
             {
                 variables: {
-
+                    todoId: props.todo._id,
+                    listId: listId,
+                    userId: userId
                 }
             }
         )
@@ -57,7 +63,7 @@ export default function TodoCard(props: TodoCardProps) {
                     </span>
                 </div>
                 <div className="right">
-                    <span className="star">
+                    <span className="star" onClick={onFavoriteItem} title="favorite">
                         <AiFillStar color={props.todo.favorite ? "#A600ED" : "#989898"} size={20} />
                     </span>
                     <span className="options">

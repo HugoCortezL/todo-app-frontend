@@ -33,6 +33,9 @@ export const TodoCardContainer = styled.div<TodoCardContainerProps>`
             display: flex;
             align-items: center;
             gap: 10px;
+            span{
+                cursor: pointer;
+            }
         }
     }
     .body{
