@@ -4,7 +4,7 @@ import { LoginContainer } from "./styles";
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER } from '../../api/User'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 export default function Login() {
@@ -16,18 +16,28 @@ export default function Login() {
         password: ""
     })
 
-    const [createUser, _] = useMutation(CREATE_USER)
+    const [createUser, createUserResult] = useMutation(CREATE_USER)
 
     const onRegister = async () => {
         if (validateUser()) {
-            await createUser({
+            const teste = await createUser({
                 variables: {
                     user: user
                 }
             })
-            navigate("/")
         }
     }
+
+    useEffect(() => {
+        if (createUserResult.data){
+            if(createUserResult.data.createUser.id){
+                navigate("/")
+            }else{
+                const errorEl = document.getElementById("error")
+                errorEl?.classList.add("active")
+            }
+        }
+    }, [createUserResult.data])
 
     const validateUser = () => {
         const nameEl = document.getElementById("name")
@@ -55,7 +65,7 @@ export default function Login() {
             resultCheck = resultCheck && false
         }
         else{
-            emailEl?.classList.remove("error")
+            passwordEl?.classList.remove("error")
         }
         return resultCheck
     }
@@ -80,6 +90,9 @@ export default function Login() {
                     <input type="password" id="password" placeholder="********" onChange={(event) => setUser({ ...user, password: event.target.value })} />
                     <p>Password must be at least 8 letters long</p>
                 </FormGroup>
+                <p id="error">
+                    Email already in use
+                </p>
                 <button className="primary-button" onClick={onRegister}>
                     Register
                 </button>

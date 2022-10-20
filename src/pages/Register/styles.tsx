@@ -17,6 +17,13 @@ export const LoginContainer = styled.div`
         cursor: pointer;
         font-weight: bold;
     }
+    p#error{
+        color: red;
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
     button.primary-button{
         width: 100%;
         margin: 30px 0 20px; 
