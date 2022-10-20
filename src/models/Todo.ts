@@ -25,5 +25,5 @@ export type TodoInput = {
     priority: PriorityEnum,
     status?: StatusEnum,
     favorite: boolean,
-    deadline?: string
+    deadline?: string,
 }

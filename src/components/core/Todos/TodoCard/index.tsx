@@ -92,7 +92,8 @@ export default function TodoCard(props: TodoCardProps) {
     }
 
     const onConfirmEdit = async () => {
-        if(validateTodo()){
+        console.log(todoToEdit)
+        /*if(validateTodo()){
             await editTodo(
                 {
                     variables: {
@@ -104,7 +105,7 @@ export default function TodoCard(props: TodoCardProps) {
                 }
             )
             cancelEditing()
-        }
+        }*/
     }
 
     const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO, {
@@ -129,6 +130,10 @@ export default function TodoCard(props: TodoCardProps) {
                 }
             }
         )
+        setTodoToEdit({
+            ...todoToEdit,
+            favorite: !todoToEdit.favorite,
+        })
     }
 
     const validateTodo = () => {
