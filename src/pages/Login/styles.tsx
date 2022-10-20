@@ -20,6 +20,13 @@ export const LoginContainer = styled.div`
     a.login-link{
         width: 100%;
     }
+    #error{
+        color: red;
+        display: none;
+        &.active{
+            display: block;
+        }
+    }
     div.options{
         width: 100%;
         margin-top: 10px;

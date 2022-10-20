@@ -25,6 +25,10 @@ export default function Login() {
         if(userLogin.data.loginUser.id){
             navigate(`/todos/${userLogin.data.loginUser.id}`)
         }
+        else{
+            const errorEl = document.getElementById("error")
+            errorEl?.classList.add("active")
+        }
     }
     
     return (
@@ -39,6 +43,11 @@ export default function Login() {
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" placeholder="********" onChange={(event) => setUser({ ...user, password: event.target.value })} />
                 </FormGroup>
+                <div id="error">
+                    <p>
+                        Login or password incorrect
+                    </p>
+                </div>
                 <div className="options">
                     <div className="remember">
                         <input type="checkbox" />
