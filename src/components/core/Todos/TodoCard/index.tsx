@@ -92,17 +92,19 @@ export default function TodoCard(props: TodoCardProps) {
     }
 
     const onConfirmEdit = async () => {
-        await editTodo(
-            {
-                variables: {
-                    todo: todoToEdit,
-                    todoId: props.todo._id,
-                    listId,
-                    userId
+        if(validateTodo()){
+            await editTodo(
+                {
+                    variables: {
+                        todo: todoToEdit,
+                        todoId: props.todo._id,
+                        listId,
+                        userId
+                    }
                 }
-            }
-        )
-        cancelEditing()
+            )
+            cancelEditing()
+        }
     }
 
     const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO, {
@@ -129,6 +131,18 @@ export default function TodoCard(props: TodoCardProps) {
         )
     }
 
+    const validateTodo = () => {
+        const titleEl = document.getElementById("title")
+        if (todoToEdit.title.trim().length == 0) {
+            titleEl?.classList.add("error")
+            return false
+        }
+        else{
+            titleEl?.classList.remove("error")
+            return true
+        }
+    }
+
     return (
         <>
             {
@@ -141,6 +155,7 @@ export default function TodoCard(props: TodoCardProps) {
                     <FormGroup>
                         <label htmlFor="title">Title</label>
                         <input type="text" id="title" placeholder="Study react" value={todoToEdit.title} onChange={(event) => setTodoToEdit({ ...todoToEdit, title: event.target.value })} />
+                        <p>The title must have at least 1 letter</p>
                     </FormGroup>
                     <FormGroup>
                         <label htmlFor="priority">Priority</label>

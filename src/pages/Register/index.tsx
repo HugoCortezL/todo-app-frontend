@@ -26,8 +26,6 @@ export default function Login() {
                 }
             })
             navigate("/")
-        } else {
-            console.log("Usuario não criado")
         }
     }
 

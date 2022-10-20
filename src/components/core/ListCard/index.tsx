@@ -75,16 +75,30 @@ export default function ListCard(props: ListCardProps) {
     }
 
     const onConfirmEdit = async () => {
-        await editList(
-            {
-                variables: {
-                    list: listToEdit,
-                    listId: props.id,
-                    userId: userId
+        if (validateList()) {
+            await editList(
+                {
+                    variables: {
+                        list: listToEdit,
+                        listId: props.id,
+                        userId: userId
+                    }
                 }
-            }
-        )
-        cancelEditing()
+            )
+            cancelEditing()
+        }
+    }
+
+    const validateList = () => {
+        const nameEl = document.getElementById("name")
+        if (listToEdit.name.trim().length == 0) {
+            nameEl?.classList.add("error")
+            return false
+        }
+        else{
+            nameEl?.classList.remove("error")
+            return true
+        }
     }
 
     return (
@@ -99,6 +113,7 @@ export default function ListCard(props: ListCardProps) {
                     <FormGroup>
                         <label htmlFor="name">Name</label>
                         <input type="name" id="name" placeholder="Work" value={listToEdit.name} onChange={(event) => setListToEdit({ ...listToEdit, name: event.target.value })} />
+                        <p>The name must have at least 1 letter</p>
                     </FormGroup>
                 </Modal>
             }

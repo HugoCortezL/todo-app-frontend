@@ -60,16 +60,18 @@ export default function ConfigTodos(props: ConfigTodosProps) {
     }
 
     const onConfirmCreate = async () => {
-        await createTodo(
-            {
-                variables: {
-                    todo: todoToCreate,
-                    listId: listId,
-                    userId: userId
+        if(validateTodo()){
+            await createTodo(
+                {
+                    variables: {
+                        todo: todoToCreate,
+                        listId: listId,
+                        userId: userId
+                    }
                 }
-            }
-        )
-        cancelCreating()
+            )
+            cancelCreating()
+        }
     }
 
 
@@ -132,6 +134,18 @@ export default function ConfigTodos(props: ConfigTodosProps) {
 
     }, [filters])
 
+    const validateTodo = () => {
+        const titleEl = document.getElementById("title")
+        if (todoToCreate.title.trim().length == 0) {
+            titleEl?.classList.add("error")
+            return false
+        }
+        else{
+            titleEl?.classList.remove("error")
+            return true
+        }
+    }
+
     return (
         <>
             {
@@ -144,6 +158,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
                     <FormGroup>
                         <label htmlFor="title">Title</label>
                         <input type="text" id="title" placeholder="Study react" value={todoToCreate.title} onChange={(event) => setTodoToCreate({ ...todoToCreate, title: event.target.value })} />
+                        <p>The title must have at least 1 letter</p>
                     </FormGroup>
                     <FormGroup>
                         <label htmlFor="priority">Priority</label>

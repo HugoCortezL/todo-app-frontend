@@ -80,17 +80,19 @@ export default function Todos() {
     }
 
     const onConfirmCreate = async () => {
-        await createList(
-            {
-                variables: {
-                    list: listToCreate,
-                    userId: id
+        if(validateList()){
+            await createList(
+                {
+                    variables: {
+                        list: listToCreate,
+                        userId: id
+                    }
                 }
+            )
+            cancelCreating()
+            if(window.innerWidth <= 860){
+                setOpenMenu(true)
             }
-        )
-        cancelCreating()
-        if(window.innerWidth <= 860){
-            setOpenMenu(true)
         }
     }
 
@@ -98,6 +100,17 @@ export default function Todos() {
         setOpenMenu(!openMenu)
     }
 
+    const validateList = () => {
+        const nameEl = document.getElementById("name")
+        if (listToCreate.name.trim().length == 0) {
+            nameEl?.classList.add("error")
+            return false
+        }
+        else{
+            nameEl?.classList.remove("error")
+            return true
+        }
+    }
 
 
     return (
@@ -111,7 +124,8 @@ export default function Todos() {
                 <Modal title="Create a list" onCancel={cancelCreating} onConfirm={onConfirmCreate} confirmText="Create">
                     <FormGroup>
                         <label htmlFor="name">Name</label>
-                        <input type="name" id="name" placeholder="Work" onChange={(event) => setListToCreate({ ...listToCreate, name: event.target.value })} />
+                        <input type="name" id="name" placeholder="Work" value={listToCreate.name} onChange={(event) => setListToCreate({ ...listToCreate, name: event.target.value })} />
+                        <p>The name must have at least 1 letter</p>
                     </FormGroup>
                 </Modal>
             }
