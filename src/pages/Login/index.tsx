@@ -22,8 +22,9 @@ export default function Login() {
                 user: user
             }
         })
-        if(userLogin.data.loginUser.id){
-            navigate(`/todos/${userLogin.data.loginUser.id}`)
+        if(userLogin.data.loginUser.token){
+            localStorage.setItem('token', userLogin.data.loginUser.token)
+            navigate(`/todos/${userLogin.data.loginUser.name}`)
         }
         else{
             const errorEl = document.getElementById("error")

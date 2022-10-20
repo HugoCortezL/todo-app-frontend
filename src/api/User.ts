@@ -13,9 +13,17 @@ export const CREATE_USER = gql`
 export const LOGIN_USER = gql`
     mutation login($user: UserLogin!){
         loginUser(user: $user) {
+            name
+            token
+        }
+    }
+`
+
+export const AUTH_USER = gql`
+    query authUser($token: String!){
+        getUserByToken(token: $token) {
             id
             name
-            email
         }
     }
 `

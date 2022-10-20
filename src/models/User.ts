@@ -5,7 +5,6 @@ export type User = {
     name: string,
     email: string,
     password: string,
-    lastLogin: string,
     lists: List[]
 }
 

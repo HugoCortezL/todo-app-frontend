@@ -1,11 +1,11 @@
 import { TodosContainer, Header, Content, SideMenu } from "./styles";
 import { BsPlusLg } from 'react-icons/bs'
 import { AiOutlineMenu } from 'react-icons/ai'
-import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_LISTS_BY_USER_ID } from '../../api/User'
+import { GET_LISTS_BY_USER_ID, AUTH_USER } from '../../api/User'
 import { CREATE_LIST } from '../../api/List'
 import { List, ListInput } from "../../models";
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, createContext } from "react";
 import ListCard from "../../components/core/ListCard";
 import Backdrop from "../../components/shared/Backdrop";
@@ -16,8 +16,35 @@ import TodosContent from "../../components/core/Todos/TodosContent";
 
 
 export const UserContext = createContext({userId: "", listId: ""});
+
 export default function Todos() {
-    const { id } = useParams();
+    const [id, setId] = useState("")
+    const [name, setName] = useState("")
+    const token = localStorage.getItem('token') || "";
+    const navigate = useNavigate();
+
+    const AuthUserResult = useQuery(AUTH_USER, {
+        variables: { token }
+    })
+    useEffect(() => {
+        if(AuthUserResult.data){
+            if(AuthUserResult.data.getUserByToken.id){
+                setId(AuthUserResult.data.getUserByToken.id)
+                const names = AuthUserResult.data.getUserByToken.name.split(" ")
+                let resultName = ""
+                for(let i = 0;i < 2;i++){
+                    if(names.length > i){
+                        resultName += names[i].charAt(0).toUpperCase()
+                    }
+                }
+                setName(resultName)
+            }
+            else{
+                navigate(`/`)
+            }
+        }
+    }, [AuthUserResult.data])
+    
     const [creating, setCreating] = useState(false)
     const [openMenu, setOpenMenu] = useState(true)
     const [listToCreate, setListToCreate] = useState<ListInput>({
@@ -136,7 +163,7 @@ export default function Todos() {
                     </span>
                     <h1>Todo App</h1>
                     <span className="user-id">
-                        HV
+                        {name}
                     </span>
                 </Header>
                 <Content>
