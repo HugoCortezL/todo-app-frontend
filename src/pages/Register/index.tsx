@@ -32,16 +32,34 @@ export default function Login() {
     }
 
     const validateUser = () => {
+        const nameEl = document.getElementById("name")
+        const emailEl = document.getElementById("email")
+        const passwordEl = document.getElementById("password")
+        let resultCheck = true
         if (user.name.trim().length == 0) {
-            return false
+            nameEl?.classList.add("error")
+            resultCheck = resultCheck && false
         }
+        else{
+            nameEl?.classList.remove("error")
+        }
+
         if (user.email.trim().length == 0) {
-            return false
+            emailEl?.classList.add("error")
+            resultCheck = resultCheck && false
         }
-        if (user.password.trim().length == 0) {
-            return false
+        else{
+            emailEl?.classList.remove("error")
         }
-        return true
+
+        if (user.password.trim().length < 8) {
+            passwordEl?.classList.add("error")
+            resultCheck = resultCheck && false
+        }
+        else{
+            emailEl?.classList.remove("error")
+        }
+        return resultCheck
     }
 
 
@@ -52,14 +70,17 @@ export default function Login() {
                 <FormGroup>
                     <label htmlFor="name">Name</label>
                     <input type="name" id="name" placeholder="Brad pitt" onChange={(event) => setUser({ ...user, name: event.target.value })} />
+                    <p>The name must have at least 1 letter</p>
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="email">Email</label>
                     <input type="email" id="email" placeholder="example@email.com" onChange={(event) => setUser({ ...user, email: event.target.value })} />
+                    <p>Email must be at least 1 letter</p>
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password" placeholder="********" onChange={(event) => setUser({ ...user, password: event.target.value })} />
+                    <p>Password must be at least 8 letters long</p>
                 </FormGroup>
                 <button className="primary-button" onClick={onRegister}>
                     Register

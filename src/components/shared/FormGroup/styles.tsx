@@ -15,4 +15,14 @@ export const FormGroupContainer = styled.div`
         background-color: #FFFFFF;
         margin-top: 5px;
     }
+    p{
+        color: red;
+        display: none;
+    }
+    input.error{
+        border: 1px solid red;
+        & + p{
+            display: block;
+        }
+    }
 `
