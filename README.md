@@ -11,7 +11,7 @@
  
 <h2 id="about">About ✨</h2>
  
-I created this project with the aim of showing some of my frontend skills
+The project aims to allow users to register and be able to create their own to-do lists. In this repository you will find the application frontend.
  
 <h2 id="technologies">Technologies 💻</h2>
  
@@ -19,6 +19,7 @@ I created this project with the aim of showing some of my frontend skills
     - react-router-dom
     - styled-components
 - GraphQL
+    - Apollo Client
 - Typescript
  
 <h2 id="Features">Features 🔥</h2>
