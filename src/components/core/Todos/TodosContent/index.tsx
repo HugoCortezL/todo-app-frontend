@@ -8,11 +8,9 @@ import ConfigTodos from "../ConfigTodos";
 import LoadingTodos from "../LoadingTodos";
 import { UserContext } from "../../../../pages/Todos";
 
-
 export default function TodosContent() {
-    const {userId, listId} = useContext(UserContext);
-    
-    
+    const { userId, listId } = useContext(UserContext);
+
     const [list, setList] = useState<List>({
         _id: "",
         name: "",
@@ -40,7 +38,7 @@ export default function TodosContent() {
                             {list.name}
                         </h1>
                         <InformationalTodos todos={list.todos} />
-                        <ConfigTodos todos={list.todos}/>
+                        <ConfigTodos todos={list.todos} />
                     </>
             }
         </TodosContainer>

@@ -12,7 +12,6 @@ import Backdrop from "../../../shared/Backdrop";
 import Modal from "../../../shared/Modal";
 import FormGroup from "../../../shared/FormGroup";
 import PriorityTodo from "../PriorityTodo";
-
 interface TodoCardProps {
     todo: Todo
 }
@@ -92,8 +91,7 @@ export default function TodoCard(props: TodoCardProps) {
     }
 
     const onConfirmEdit = async () => {
-        console.log(todoToEdit)
-        /*if(validateTodo()){
+        if (validateTodo()) {
             await editTodo(
                 {
                     variables: {
@@ -105,10 +103,10 @@ export default function TodoCard(props: TodoCardProps) {
                 }
             )
             cancelEditing()
-        }*/
+        }
     }
 
-    const [favoriteTodo, favoriteTodoResult] = useMutation(FAVORITE_TODO, {
+    const [favoriteTodo, _] = useMutation(FAVORITE_TODO, {
         refetchQueries: [
             {
                 query: GET_LIST_BY_ID,
@@ -142,7 +140,7 @@ export default function TodoCard(props: TodoCardProps) {
             titleEl?.classList.add("error")
             return false
         }
-        else{
+        else {
             titleEl?.classList.remove("error")
             return true
         }

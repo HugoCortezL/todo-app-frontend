@@ -12,7 +12,6 @@ import Backdrop from "../../../shared/Backdrop";
 import Modal from "../../../shared/Modal";
 import { UserContext } from "../../../../pages/Todos";
 
-
 interface ConfigTodosProps {
     todos: Todo[]
 }
@@ -35,7 +34,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
         status: StatusEnum.Todo
     })
 
-    const [createTodo, createTodoResult] = useMutation(CREATE_TODO, {
+    const [createTodo, _] = useMutation(CREATE_TODO, {
         refetchQueries: [
             {
                 query: GET_LIST_BY_ID,
@@ -60,7 +59,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
     }
 
     const onConfirmCreate = async () => {
-        if(validateTodo()){
+        if (validateTodo()) {
             await createTodo(
                 {
                     variables: {
@@ -74,43 +73,44 @@ export default function ConfigTodos(props: ConfigTodosProps) {
         }
     }
 
-
     useEffect(() => {
         setFilteredTodos(props.todos)
     }, [props.todos])
 
     const sortFunc = (property: string) => {
         let sortOrder = 1;
-        if(property[0] === "-") {
+        if (property[0] === "-") {
             sortOrder = -1;
             property = property.substr(1);
         }
-        return function (a: any,b: any) {
-            if(property == "priority"){
-                console.log("A property")
-                console.log(a[property])
-                console.log("B property")
-                console.log(b[property])
-                if (a[property] == PriorityEnum.Low){
-                    return -1 * sortOrder
-                }
-                if (a[property] == PriorityEnum.Mid && b[property] == PriorityEnum.Low){
-                    return 1 * sortOrder
-                }
-                if (a[property] == PriorityEnum.Mid && b[property] == PriorityEnum.High){
-                    return -1 * sortOrder
-                }
-                if (a[property] == PriorityEnum.High){
-                    return 1 * sortOrder
-                }
-                return (0 * sortOrder);
+        return function (a: any, b: any) {
+            switch (property) {
+                case "priority":
+                    switch (a[property]) {
+                        case PriorityEnum.Low:
+                            return -1 * sortOrder
+                        case PriorityEnum.Mid:
+                            if (b[property] == PriorityEnum.Low) {
+                                return 1 * sortOrder
+                            }
+                            if (b[property] == PriorityEnum.High) {
+                                return -1 * sortOrder
+                            }
+                            return 0 * sortOrder
+                        case PriorityEnum.High:
+                            return 1 * sortOrder
+                        default:
+                            return 0 * sortOrder
+
+                    }
+                case "":
+                default:
+                    if (a[property] < b[property]) {
+                        return -1 * sortOrder
+                    }
+                    return (a[property] > b[property]) ? (1 * sortOrder) : (0 * sortOrder)
             }
-            else{
-                if (a[property].toLowerCase() < b[property].toLowerCase()){
-                    return -1 * sortOrder
-                }
-                return (a[property].toLowerCase() > b[property].toLowerCase()) ? (1 * sortOrder) : (0 * sortOrder);
-            }
+
         }
     }
 
@@ -124,7 +124,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
         }
         if (filters.orderBy[1].length > 0) {
             let field = filters.orderBy[1]
-            if(filters.orderBy[2] == "desc"){
+            if (filters.orderBy[2] == "desc") {
                 field = "-" + field
             }
             newFilteredTodos = newFilteredTodos.slice().sort(sortFunc(field))
@@ -140,7 +140,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
             titleEl?.classList.add("error")
             return false
         }
-        else{
+        else {
             titleEl?.classList.remove("error")
             return true
         }

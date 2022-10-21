@@ -29,10 +29,10 @@ export default function Login() {
     }
 
     useEffect(() => {
-        if (createUserResult.data){
-            if(createUserResult.data.createUser.id){
+        if (createUserResult.data) {
+            if (createUserResult.data.createUser.id) {
                 navigate("/")
-            }else{
+            } else {
                 const errorEl = document.getElementById("error")
                 errorEl?.classList.add("active")
             }
@@ -48,7 +48,7 @@ export default function Login() {
             nameEl?.classList.add("error")
             resultCheck = resultCheck && false
         }
-        else{
+        else {
             nameEl?.classList.remove("error")
         }
 
@@ -56,7 +56,7 @@ export default function Login() {
             emailEl?.classList.add("error")
             resultCheck = resultCheck && false
         }
-        else{
+        else {
             emailEl?.classList.remove("error")
         }
 
@@ -64,7 +64,7 @@ export default function Login() {
             passwordEl?.classList.add("error")
             resultCheck = resultCheck && false
         }
-        else{
+        else {
             passwordEl?.classList.remove("error")
         }
         return resultCheck

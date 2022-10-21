@@ -4,7 +4,7 @@ import { LoginContainer } from "./styles";
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { LOGIN_USER } from '../../api/User'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Login() {
     const navigate = useNavigate();
@@ -22,23 +22,23 @@ export default function Login() {
                 user: user
             }
         })
-        if(userLogin.data.loginUser.token){
+        if (userLogin.data.loginUser.token) {
             localStorage.setItem('token', userLogin.data.loginUser.token)
             navigate(`/todos/${userLogin.data.loginUser.name}`)
         }
-        else{
+        else {
             const errorEl = document.getElementById("error")
             errorEl?.classList.add("active")
         }
     }
-    
+
     return (
         <LoginLayout>
             <LoginContainer>
                 <h1>Welcome Back</h1>
                 <FormGroup>
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="example@email.com" onChange={(event) => setUser({ ...user, email: event.target.value})}/>
+                    <input type="email" id="email" placeholder="example@email.com" onChange={(event) => setUser({ ...user, email: event.target.value })} />
                 </FormGroup>
                 <FormGroup>
                     <label htmlFor="password">Password</label>

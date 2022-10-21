@@ -1,5 +1,5 @@
 import { ModalContainer } from "./styles";
-import {AiOutlineClose} from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import { ReactNode } from "react";
 
 interface ModalProps {
@@ -10,13 +10,13 @@ interface ModalProps {
     children: ReactNode
 }
 
-export default function Modal(props:ModalProps) {
+export default function Modal(props: ModalProps) {
     return (
         <ModalContainer>
             <div className="header">
                 {props.title}
-                <div className="close"  onClick={props.onCancel}>
-                    <AiOutlineClose color={"#4F49FC"}/>
+                <div className="close" onClick={props.onCancel}>
+                    <AiOutlineClose color={"#4F49FC"} />
                 </div>
             </div>
             <div className="content">
@@ -26,7 +26,7 @@ export default function Modal(props:ModalProps) {
                 <button className="ternary-button" onClick={props.onCancel}>
                     Cancel
                 </button>
-                <button className="primary-button"  onClick={props.onConfirm}>
+                <button className="primary-button" onClick={props.onConfirm}>
                     {props.confirmText}
                 </button>
             </div>

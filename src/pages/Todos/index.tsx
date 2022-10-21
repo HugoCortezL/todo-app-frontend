@@ -15,7 +15,7 @@ import ListCardLoading from "../../components/core/ListCardLoading";
 import TodosContent from "../../components/core/Todos/TodosContent";
 
 
-export const UserContext = createContext({userId: "", listId: ""});
+export const UserContext = createContext({ userId: "", listId: "" });
 
 export default function Todos() {
     const [id, setId] = useState("")
@@ -27,24 +27,24 @@ export default function Todos() {
         variables: { token }
     })
     useEffect(() => {
-        if(AuthUserResult.data){
-            if(AuthUserResult.data.getUserByToken.id){
+        if (AuthUserResult.data) {
+            if (AuthUserResult.data.getUserByToken.id) {
                 setId(AuthUserResult.data.getUserByToken.id)
                 const names = AuthUserResult.data.getUserByToken.name.split(" ")
                 let resultName = ""
-                for(let i = 0;i < 2;i++){
-                    if(names.length > i){
+                for (let i = 0; i < 2; i++) {
+                    if (names.length > i) {
                         resultName += names[i].charAt(0).toUpperCase()
                     }
                 }
                 setName(resultName)
             }
-            else{
+            else {
                 navigate(`/`)
             }
         }
     }, [AuthUserResult.data])
-    
+
     const [creating, setCreating] = useState(false)
     const [openMenu, setOpenMenu] = useState(true)
     const [listToCreate, setListToCreate] = useState<ListInput>({
@@ -78,7 +78,7 @@ export default function Todos() {
     const handlerChangeList = (id: string) => {
         setListToShow(id)
         const allItems = document.querySelectorAll('.list-item')
-        
+
 
         allItems.forEach(item => {
             item.classList.remove('active')
@@ -90,7 +90,7 @@ export default function Todos() {
 
     const startCreating = () => {
         setCreating(true)
-        if(window.innerWidth <= 860){
+        if (window.innerWidth <= 860) {
             setOpenMenu(false)
         }
     }
@@ -101,13 +101,13 @@ export default function Todos() {
             name: "",
             todos: []
         })
-        if(window.innerWidth <= 860){
+        if (window.innerWidth <= 860) {
             setOpenMenu(true)
         }
     }
 
     const onConfirmCreate = async () => {
-        if(validateList()){
+        if (validateList()) {
             await createList(
                 {
                     variables: {
@@ -117,7 +117,7 @@ export default function Todos() {
                 }
             )
             cancelCreating()
-            if(window.innerWidth <= 860){
+            if (window.innerWidth <= 860) {
                 setOpenMenu(true)
             }
         }
@@ -133,7 +133,7 @@ export default function Todos() {
             nameEl?.classList.add("error")
             return false
         }
-        else{
+        else {
             nameEl?.classList.remove("error")
             return true
         }
@@ -141,7 +141,7 @@ export default function Todos() {
 
 
     return (
-        <UserContext.Provider value={{userId: id ? id : "", listId: listToShow}}>
+        <UserContext.Provider value={{ userId: id ? id : "", listId: listToShow }}>
             {
                 creating &&
                 <Backdrop click={cancelCreating} />
@@ -159,7 +159,7 @@ export default function Todos() {
             <TodosContainer>
                 <Header>
                     <span className="burguer-icon" onClick={handlerOpenMenu}>
-                        <AiOutlineMenu size={25}/>
+                        <AiOutlineMenu size={25} />
                     </span>
                     <h1>Todo App</h1>
                     <span className="user-id">
@@ -203,7 +203,7 @@ export default function Todos() {
                     <div className="todos">
                         {
                             listToShow &&
-                            <TodosContent/>
+                            <TodosContent />
                         }
                     </div>
                 </Content>

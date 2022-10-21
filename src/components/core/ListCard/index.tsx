@@ -10,7 +10,6 @@ import Modal from '../../shared/Modal'
 import FormGroup from '../../shared/FormGroup'
 import { UserContext } from "../../../pages/Todos";
 
-
 interface ListCardProps {
     children: ReactNode,
     className: string,
@@ -20,14 +19,13 @@ interface ListCardProps {
 }
 
 export default function ListCard(props: ListCardProps) {
-    const {userId, listId} = useContext(UserContext);
+    const { userId, listId } = useContext(UserContext);
     const [openOptions, setOpenOptions] = useState(false)
     const [editing, setEditing] = useState(false)
     const [listToEdit, setListToEdit] = useState<ListInput>({
         name: props.name,
         todos: []
     })
-
 
     const handlerOpenOptions = () => {
         setOpenOptions(!openOptions)
@@ -95,7 +93,7 @@ export default function ListCard(props: ListCardProps) {
             nameEl?.classList.add("error")
             return false
         }
-        else{
+        else {
             nameEl?.classList.remove("error")
             return true
         }

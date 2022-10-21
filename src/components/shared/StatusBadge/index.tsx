@@ -1,7 +1,6 @@
 import { StatusBadgeContainer } from "./styles";
 import { StatusEnum } from "../../../models";
 
-
 interface StatusBadgeProps {
     status?: StatusEnum
 }
