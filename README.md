@@ -11,7 +11,7 @@
  
 <h2 id="about">About ✨</h2>
  
-The project aims to allow users to register and be able to create their own to-do lists. In this repository you will find the application frontend. Você pode ver o backend desta aplicação no link: [Backend](https://github.com/HugoCortezL/todo-app-backend)
+The project aims to allow users to register and be able to create their own to-do lists. In this repository you will find the application frontend. You can see the backend of this application here [Backend](https://github.com/HugoCortezL/todo-app-backend)
  
 <h2 id="technologies">Technologies 💻</h2>
  
