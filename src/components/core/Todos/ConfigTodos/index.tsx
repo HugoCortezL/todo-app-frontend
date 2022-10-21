@@ -106,10 +106,10 @@ export default function ConfigTodos(props: ConfigTodosProps) {
                 return (0 * sortOrder);
             }
             else{
-                if (a[property] < b[property]){
+                if (a[property].toLowerCase() < b[property].toLowerCase()){
                     return -1 * sortOrder
                 }
-                return (a[property] > b[property]) ? (1 * sortOrder) : (0 * sortOrder);
+                return (a[property].toLowerCase() > b[property].toLowerCase()) ? (1 * sortOrder) : (0 * sortOrder);
             }
         }
     }
@@ -120,7 +120,7 @@ export default function ConfigTodos(props: ConfigTodosProps) {
             newFilteredTodos = newFilteredTodos.filter(todo => todo.favorite)
         }
         if (filters.searchText.trim().length > 0) {
-            newFilteredTodos = newFilteredTodos.filter(todo => todo.title.includes(filters.searchText))
+            newFilteredTodos = newFilteredTodos.filter(todo => todo.title.toLowerCase().includes(filters.searchText.toLowerCase()))
         }
         if (filters.orderBy[1].length > 0) {
             let field = filters.orderBy[1]

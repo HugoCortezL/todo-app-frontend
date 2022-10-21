@@ -10,6 +10,22 @@ export const TodosContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: #3733B0; 
+        border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #1c1898; 
+    }
     @media (max-width: 860px) {
         width: 100vw;
     }
