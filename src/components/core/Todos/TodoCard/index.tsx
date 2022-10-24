@@ -214,7 +214,7 @@ export default function TodoCard(props: TodoCardProps) {
                         {
                             props.todo.deadline ?
                                 <p>
-                                    {props.todo.deadline}
+                                    {props.todo.deadline.split("-").reverse().join("/")}
                                 </p>
                                 :
                                 <></>

@@ -10,6 +10,9 @@ export const TodosContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    h1.title{
+        font-size: 40px;
+    }
     &::-webkit-scrollbar {
         width: 8px;
     }

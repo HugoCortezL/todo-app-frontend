@@ -44,7 +44,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/todos/:name" element={<Todos />} />
+          <Route path="/todos" element={<Todos />} />
         </Routes>
       </BrowserRouter>
     </ApolloProvider>

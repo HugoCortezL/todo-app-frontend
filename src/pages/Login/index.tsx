@@ -24,7 +24,7 @@ export default function Login() {
         })
         if (userLogin.data.loginUser.token) {
             localStorage.setItem('token', userLogin.data.loginUser.token)
-            navigate(`/todos/${userLogin.data.loginUser.name}`)
+            navigate('/todos')
         }
         else {
             const errorEl = document.getElementById("error")

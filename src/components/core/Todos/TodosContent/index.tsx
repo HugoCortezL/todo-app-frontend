@@ -34,7 +34,7 @@ export default function TodosContent() {
                     <LoadingTodos />
                     :
                     <>
-                        <h1>
+                        <h1 className="title">
                             {list.name}
                         </h1>
                         <InformationalTodos todos={list.todos} />

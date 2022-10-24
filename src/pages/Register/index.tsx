@@ -31,7 +31,8 @@ export default function Login() {
     useEffect(() => {
         if (createUserResult.data) {
             if (createUserResult.data.createUser.id) {
-                navigate("/")
+                localStorage.setItem('token', createUserResult.data.createUser.token)
+                navigate('/todos')
             } else {
                 const errorEl = document.getElementById("error")
                 errorEl?.classList.add("active")

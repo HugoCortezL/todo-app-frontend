@@ -26,11 +26,15 @@ export const Header = styled.div`
         font-weight: normal;
     }
     span.user-id{
+        height: 40px;
+        width: 40px;
         box-shadow: 0px 0px 10px #1c1898;
-        padding: 10px;
         border-radius: 50%;
         background-color: #3733B0;
         color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 `
 
