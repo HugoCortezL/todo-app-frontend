@@ -31,7 +31,6 @@ The project aims to allow users to register and be able to create their own to-d
 * [X] Filter todo's
 * [ ] Share list
 * [ ] Sort by groups (priority, status, deadline)
-* [ ] Voice Capture
 * [ ] Reorder with drag and drop
 
 <h2 id="pre">Prerequisites ✏️</h2>
