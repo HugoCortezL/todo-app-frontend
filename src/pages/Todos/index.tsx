@@ -1,4 +1,4 @@
-import { TodosContainer, Header, Content, SideMenu } from "./styles";
+import { TodosContainer, Header, Content, SideMenu, UserOptions } from "./styles";
 import { BsPlusLg } from 'react-icons/bs'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useQuery, useMutation } from '@apollo/client'
@@ -20,6 +20,7 @@ export const UserContext = createContext({ userId: "", listId: "" });
 export default function Todos() {
     const [id, setId] = useState("")
     const [name, setName] = useState("")
+    const [openUserOptions, setOpenUserOptions] = useState(false)
     const token = localStorage.getItem('token') || "";
     const navigate = useNavigate();
 
@@ -139,6 +140,10 @@ export default function Todos() {
         }
     }
 
+    const onLogout = () => {
+        navigate(`/`)
+    }
+
 
     return (
         <UserContext.Provider value={{ userId: id ? id : "", listId: listToShow }}>
@@ -162,8 +167,13 @@ export default function Todos() {
                         <AiOutlineMenu size={25} />
                     </span>
                     <h1>Todo App</h1>
-                    <span className="user-id">
+                    <span className="user-id" onClick={() => setOpenUserOptions(!openUserOptions)} onMouseLeave={() => setOpenUserOptions(false)}>
                         {name}
+                        <UserOptions className={openUserOptions ? "open" : ""}>
+                            <p onClick={onLogout}>
+                                Logout
+                            </p>
+                        </UserOptions>
                     </span>
                 </Header>
                 <Content>

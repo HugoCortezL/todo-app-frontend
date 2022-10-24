@@ -26,6 +26,7 @@ export const Header = styled.div`
         font-weight: normal;
     }
     span.user-id{
+        position: relative;
         height: 40px;
         width: 40px;
         box-shadow: 0px 0px 10px #1c1898;
@@ -35,6 +36,7 @@ export const Header = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 `
 
@@ -111,4 +113,34 @@ export const SideMenu = styled.div`
             }
         }
     }
+`
+
+export const UserOptions = styled.div`
+    display: none;
+    &.open {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background-color: #FFFFFF;
+        border: 1px solid #DADADA;
+        box-shadow: 0px 0px 4px #DADADA;
+        border-radius: 4px;
+        z-index: 1000;
+        p{
+            padding: 7px 10px;
+            padding-right: 50px;
+            color: #181818;
+            &:first-child{
+                padding-top: 10px;
+            }
+            &:last-child{
+                padding-bottom: 10px;
+            }
+            &:hover{
+                background-color: #DADADA;
+            }
+        }
+    }
+
 `
